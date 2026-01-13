@@ -261,7 +261,8 @@ namespace Realm {
     };
 #endif
 
-    void kokkos_initialize(const std::vector<ProcessorImpl *> &local_procs)
+    REALM_PUBLIC_API void
+    kokkos_initialize(const std::vector<ProcessorImpl *> &local_procs)
     {
       // use Kokkos::Impl::{pre,post}_initialize to allow us to do our own
       //  execution space initialization
@@ -387,7 +388,7 @@ namespace Realm {
       Kokkos::Impl::post_initialize(kokkos_init_args);
     }
 
-    void kokkos_finalize(const std::vector<ProcessorImpl *> &local_procs)
+    REALM_PUBLIC_API void kokkos_finalize(const std::vector<ProcessorImpl *> &local_procs)
     {
 #if KOKKOS_VERSION >= 40000
       Kokkos::Impl::pre_finalize();
