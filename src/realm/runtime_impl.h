@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 Stanford University, NVIDIA Corporation
+ * Copyright 2025 Stanford University, NVIDIA Corporation, Los Alamos National Laboratory
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -322,7 +322,8 @@ namespace Realm {
     ReservationImpl *get_lock_impl(ID id);
     MemoryImpl *get_memory_impl(ID id) const;
     IBMemory *get_ib_memory_impl(ID id) const;
-    ProcessorImpl *get_processor_impl(ID id); // TODO: refactor it to const version
+    REALM_INTERNAL_API_EXTERNAL_LINKAGE ProcessorImpl *
+    get_processor_impl(ID id); // TODO: refactor it to const version
     ProcessorGroupImpl *get_procgroup_impl(ID id);
     RegionInstanceImpl *get_instance_impl(ID id);
     SparsityMapImplWrapper *get_sparsity_impl(ID id);
@@ -464,8 +465,11 @@ namespace Realm {
     std::map<std::string, ModuleConfig *> module_configs;
   };
 
-  extern RuntimeImpl *runtime_singleton;
-  inline RuntimeImpl *get_runtime(void) { return runtime_singleton; }
+  REALM_INTERNAL_API_EXTERNAL_LINKAGE extern RuntimeImpl *runtime_singleton;
+  REALM_INTERNAL_API_EXTERNAL_LINKAGE inline RuntimeImpl *get_runtime(void)
+  {
+    return runtime_singleton;
+  }
 
   // due to circular dependencies in include files, we need versions of these that
   //  hide the RuntimeImpl intermediate

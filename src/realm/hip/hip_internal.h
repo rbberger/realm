@@ -174,7 +174,7 @@ namespace Realm {
       ~GPUStream(void);
 
       GPU *get_gpu(void) const;
-      hipStream_t get_stream(void) const;
+      REALM_INTERNAL_API_EXTERNAL_LINKAGE hipStream_t get_stream(void) const;
 
       // may be called by anybody to enqueue a copy or an event
       void add_fence(GPUWorkFence *fence);
@@ -344,7 +344,7 @@ namespace Realm {
       bool can_access_peer(GPU *peer);
 
       GPUStream *find_stream(hipStream_t stream) const;
-      GPUStream *get_null_task_stream(void) const;
+      REALM_INTERNAL_API_EXTERNAL_LINKAGE GPUStream *get_null_task_stream(void) const;
       GPUStream *get_next_task_stream(bool create = false);
       GPUStream *get_next_d2d_stream();
 
@@ -421,7 +421,8 @@ namespace Realm {
       GPU *gpu;
     };
 
-    class GPUProcessor : public Realm::LocalTaskProcessor {
+    class REALM_INTERNAL_API_EXTERNAL_LINKAGE GPUProcessor
+      : public Realm::LocalTaskProcessor {
     public:
       GPUProcessor(RuntimeImpl *runtime_impl, GPU *_gpu, Processor _me,
                    Realm::CoreReservationSet &crs, size_t _stack_size);
